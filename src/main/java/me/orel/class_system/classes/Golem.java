@@ -1,6 +1,8 @@
 package me.orel.class_system.classes;
 
 import me.orel.class_system.Class;
+import me.orel.class_system.abilities.Ability;
+import me.orel.class_system.abilities.Leap;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -38,5 +40,25 @@ public class Golem extends Class {
                 new ItemStack(Material.IRON_CHESTPLATE),
                 new ItemStack(Material.IRON_HELMET)
         };
+    }
+
+    @Override
+    public Ability getAbility() {
+        return new Leap();
+    }
+
+    @Override
+    public int getEnergyPerHit() {
+        return 10;
+    }
+
+    @Override
+    public int getMaxEnergy() {
+        return 100;
+    }
+
+    @Override
+    public int getUpgradePrice(me.orel.class_system.UpgradeType type, int level) {
+        return 100 * level; // Simple placeholder pricing
     }
 }

@@ -1,6 +1,7 @@
 package me.orel.class_system;
 
 import me.orel.MegaWallzFFA;
+import me.orel.player.MPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,12 +23,32 @@ public class ClassListener implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             ItemStack item = event.getItem();
-            if (item != null && item.getType() == Material.NETHER_STAR && item.hasItemMeta()) {
+            if (item != null && item.getType().name().endsWith("_SWORD")) {
+                MPlayer mPlayer = plugin.getPlayerManager().getMPlayer(player);
+                if (mPlayer.getSelectedClass() != null) {
+                    if (mPlayer.getEnergy() >= mPlayer.getSelectedClass().getMaxEnergy()) {
+                        long now = System.currentTimeMillis();
+                        long lastUse = mPlayer.getLastAbilityUse();
+                        long cooldown = mPlayer.getSelectedClass().getAbility().getCooldown();
+                        if (now - lastUse > cooldown) {
+                            mPlayer.getSelectedClass().getAbility().use(player);
+                            mPlayer.setEnergy(0);
+                            mPlayer.setLastAbilityUse(now);
+                            player.sendMessage(ChatColor.GREEN + "You used your ability!");
+                        } else {
+                            player.sendMessage(ChatColor.RED + "Your ability is on cooldown for " + ((cooldown - (now - lastUse)) / 1000) + "s.");
+                        }
+                    } else {
+                        player.sendMessage(ChatColor.RED + "You don't have enough energy!");
+                    }
+                }
+            } else if (item != null && item.getType() == Material.COMMAND_BLOCK && item.hasItemMeta()) {
                 ItemMeta meta = item.getItemMeta();
-                if (meta.hasDisplayName() && meta.getDisplayName().equals(ChatColor.GREEN + "Class Selector")) {
-                    plugin.getClassSelectorGUI().open(event.getPlayer());
+                if (meta.hasDisplayName() && meta.getDisplayName().equals("§aClass Selector§7 (Right Click)")) {
+                    plugin.getClassSelectorGUI().open(player);
                 }
             }
         }

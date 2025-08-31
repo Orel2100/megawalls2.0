@@ -51,3 +51,5 @@ commands:
     permission: megawallsffa.booster
   tip:
     description: Tip a player some coins.
+  upgrade:
+    description: Upgrade your class.

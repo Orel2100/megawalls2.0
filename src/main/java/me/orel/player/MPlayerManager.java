@@ -49,6 +49,15 @@ public class MPlayerManager {
             mPlayer.setKills(config.getInt("stats.kills", 0));
             mPlayer.setDeaths(config.getInt("stats.deaths", 0));
             mPlayer.setCoins(config.getInt("stats.coins", 0));
+            if (config.isConfigurationSection("upgrades")) {
+                for (String className : config.getConfigurationSection("upgrades").getKeys(false)) {
+                    for (String typeName : config.getConfigurationSection("upgrades." + className).getKeys(false)) {
+                        me.orel.class_system.UpgradeType type = me.orel.class_system.UpgradeType.valueOf(typeName);
+                        int level = config.getInt("upgrades." + className + "." + typeName);
+                        mPlayer.setUpgradeLevel(className, type, level);
+                    }
+                }
+            }
         }
         players.put(player.getUniqueId(), mPlayer);
     }
@@ -63,6 +72,11 @@ public class MPlayerManager {
         config.set("stats.kills", mPlayer.getKills());
         config.set("stats.deaths", mPlayer.getDeaths());
         config.set("stats.coins", mPlayer.getCoins());
+        for (Map.Entry<String, Map<me.orel.class_system.UpgradeType, Integer>> entry : mPlayer.getUpgrades().entrySet()) {
+            for (Map.Entry<me.orel.class_system.UpgradeType, Integer> upgradeEntry : entry.getValue().entrySet()) {
+                config.set("upgrades." + entry.getKey() + "." + upgradeEntry.getKey().name(), upgradeEntry.getValue());
+            }
+        }
         try {
             config.save(playerFile);
         } catch (IOException e) {

@@ -15,8 +15,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.orel.booster.BoosterManager;
 import me.orel.mute.MuteManager;
+import me.orel.api.ItemStackCreator;
 import me.orel.team.TeamManager;
+import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -65,12 +68,14 @@ public final class MegaWallzFFA extends JavaPlugin implements Listener {
         commandHandler.register("clearchat", new me.orel.commands.cmds.ClearChatCommand());
         commandHandler.register("booster", new me.orel.commands.cmds.BoosterCommand(this));
         commandHandler.register("tip", new me.orel.commands.cmds.TipCommand(this));
+        commandHandler.register("upgrade", new me.orel.commands.cmds.UpgradeCommand(this));
 
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new me.orel.class_system.ClassListener(this), this);
         getServer().getPluginManager().registerEvents(new me.orel.listeners.DeathListener(this), this);
         getServer().getPluginManager().registerEvents(new me.orel.listeners.DamageListener(this), this);
         getServer().getPluginManager().registerEvents(new me.orel.listeners.ChatListener(this), this);
+        getServer().getPluginManager().registerEvents(new me.orel.class_system.UpgradeGUI(this), this);
     }
 
     @Override
@@ -82,16 +87,38 @@ public final class MegaWallzFFA extends JavaPlugin implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         playerManager.addPlayer(event.getPlayer());
         org.bukkit.entity.Player player = event.getPlayer();
-        player.getInventory().clear();
-        ItemStack classSelector = new ItemStack(org.bukkit.Material.NETHER_STAR);
-        org.bukkit.inventory.meta.ItemMeta meta = classSelector.getItemMeta();
-        meta.setDisplayName(org.bukkit.ChatColor.GREEN + "Class Selector");
-        classSelector.setItemMeta(meta);
-        player.getInventory().setItem(4, classSelector);
 
         if (getFFALobby() != null) {
             player.teleport(getFFALobby());
         }
+
+        player.getInventory().clear();
+        player.getInventory().setArmorContents(null);
+        for(org.bukkit.potion.PotionEffect potion : player.getActivePotionEffects()) player.removePotionEffect(potion.getType());
+
+        ItemStack skull = new ItemStack(org.bukkit.Material.PLAYER_HEAD,1,(byte)3);
+        SkullMeta sm = (SkullMeta) skull.getItemMeta();
+        sm.setOwner(player.getName());
+        sm.setDisplayName(org.bukkit.ChatColor.GREEN + "My Profile " + org.bukkit.ChatColor.GRAY + "(Right Click)");
+        sm.setLore(Arrays.asList(org.bukkit.ChatColor.GRAY + "Click to see your own stats"));
+        skull.setItemMeta(sm);
+
+        player.getInventory().setItem(8, ItemStackCreator.createItem(new ItemStack(org.bukkit.Material.COMMAND_BLOCK), "§aClass Selector§7 (Right Click)"));
+        player.getInventory().setItem(1, skull);
+        player.getInventory().setItem(7, ItemStackCreator.createItem(new ItemStack(org.bukkit.Material.EMERALD), "§aShop§7 (Right Click)"));
+        player.getInventory().setItem(4, ItemStackCreator.createItem(new ItemStack(org.bukkit.Material.CAKE), "§cPLAY!§7 (Right Click)"));
+        if(player.hasPermission("megawalls.spectate")) {
+            player.getInventory().setItem(5, ItemStackCreator.createItem(new ItemStack(org.bukkit.Material.GOLD_NUGGET), "§aStaff Spectate Item§7 (Right Click)"));
+        }
+        player.getInventory().setItem(0, ItemStackCreator.createItem(new ItemStack(org.bukkit.Material.COMPASS), "§aGame Menu§7 (Right Click)"));
+
+        player.updateInventory();
+        player.setLevel(0);
+        player.setExp(0);
+        player.setMaxHealth(20.0);
+        player.setFoodLevel(20);
+        player.setHealth(20.0);
+        player.setGameMode(org.bukkit.GameMode.ADVENTURE);
     }
 
     @EventHandler
