@@ -1,0 +1,7 @@
+# MegaWallzFFA Configuration
+
+# Set the ffa lobby location for the arena.
+# This is where players will spawn when they join the server and after they die.
+# Use the /arena setspawn command to set this automatically.
+# Format: world,x,y,z,yaw,pitch
+ffa-lobby: world,0,100,0,0,0
