@@ -1,0 +1,4 @@
+name: MegaWallzFFA
+version: '1.0-SNAPSHOT'
+main: me.orel.MegaWallzFFA
+api-version: '1.21'
