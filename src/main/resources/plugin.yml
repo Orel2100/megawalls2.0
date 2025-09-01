@@ -6,3 +6,5 @@ commands:
   arena:
     description: Arena management command.
     permission: megawallsffa.arena
+  upgrade:
+    description: Upgrade your class.
