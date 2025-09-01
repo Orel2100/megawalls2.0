@@ -4,6 +4,7 @@ import me.orel.MegaWallzFFA;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +19,11 @@ public class CommandHandler implements CommandExecutor {
     }
 
     public void register(String commandName, CommandExecutor commandExecutor) {
-        commands.put(commandName.toLowerCase(), commandExecutor);
-        plugin.getCommand(commandName).setExecutor(this);
+        PluginCommand command = plugin.getCommand(commandName);
+        if (command != null) {
+            command.setExecutor(this);
+            commands.put(commandName.toLowerCase(), commandExecutor);
+        }
     }
 
     @Override

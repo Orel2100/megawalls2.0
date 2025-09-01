@@ -1,11 +1,15 @@
-package me.orel.commands.cmds;
+package me.orel.commands;
 
 import me.orel.MegaWallzFFA;
+import me.orel.api.ConfigUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArenaCommand implements CommandExecutor {
 
@@ -27,14 +31,20 @@ public class ArenaCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length == 1 && args[0].equalsIgnoreCase("setspawn")) {
+        if (args.length > 0) {
             Player player = (Player) sender;
-            MegaWallzFFA.setFFALobby(player.getLocation());
-            player.sendMessage(ChatColor.GREEN + "Arena spawn location set!");
-        } else {
-            sender.sendMessage(ChatColor.RED + "Usage: /arena setspawn");
+            if (args[0].equalsIgnoreCase("setlobby")) {
+                ConfigUtils.setLobby(player.getLocation());
+                player.sendMessage(ChatColor.GREEN + "Lobby location set!");
+                return true;
+            } else if (args[0].equalsIgnoreCase("setgamespawn")) {
+                ConfigUtils.addGameSpawn(player.getLocation());
+                player.sendMessage(ChatColor.GREEN + "Game spawn location added!");
+                return true;
+            }
         }
 
+        sender.sendMessage(ChatColor.RED + "Usage: /arena <setlobby|setgamespawn>");
         return true;
     }
 }

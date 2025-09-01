@@ -3,53 +3,6 @@ version: '1.0-SNAPSHOT'
 main: me.orel.MegaWallzFFA
 api-version: '1.21'
 commands:
-  megawallsffa:
-    description: Main command for the plugin.
-    aliases: [mw]
-  resetclass:
-    description: Reset your selected class.
   arena:
     description: Arena management command.
     permission: megawallsffa.arena
-  stats:
-    description: View your or another player's stats.
-  leaderboard:
-    description: View the top players.
-    aliases: [lb, top]
-  msg:
-    description: Send a private message to a player.
-    aliases: [w, tell]
-  reply:
-    description: Reply to the last private message.
-    aliases: [r]
-  team:
-    description: Manage your team.
-    aliases: [t]
-  mute:
-    description: Mute a player.
-    permission: megawallsffa.mute
-  unmute:
-    description: Unmute a player.
-    permission: megawallsffa.unmute
-  mcheck:
-    description: Check a player's mute status.
-    permission: megawallsffa.mcheck
-  staffchat:
-    description: Send a message to all staff members.
-    permission: megawallsffa.staffchat
-    aliases: [sc]
-  lockchat:
-    description: Lock or unlock the chat.
-    permission: megawallsffa.lockchat
-    aliases: [cl]
-  clearchat:
-    description: Clear the chat.
-    permission: megawallsffa.clearchat
-    aliases: [cc]
-  booster:
-    description: Activate a coin booster.
-    permission: megawallsffa.booster
-  tip:
-    description: Tip a player some coins.
-  upgrade:
-    description: Upgrade your class.
