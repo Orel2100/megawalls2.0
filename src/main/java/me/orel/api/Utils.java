@@ -1,10 +1,14 @@
 package me.orel.api;
 
 import me.orel.MegaWallzFFA;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
@@ -62,5 +66,26 @@ public class Utils {
         player.setFoodLevel(20);
         player.setHealth(20.0);
         player.setGameMode(GameMode.ADVENTURE);
+    }
+
+    public static ItemStack getSteaks(int amount, String name) {
+        return ItemStackCreator.createItem(new ItemStack(org.bukkit.Material.COOKED_BEEF, amount), ChatColor.AQUA + name + " Steak");
+    }
+
+    public static ItemStack getPotionRegeneration(int amount, String c) {
+        ItemStack potion = new ItemStack(org.bukkit.Material.POTION, amount);
+        PotionMeta pm = (PotionMeta) potion.getItemMeta();
+        pm.addCustomEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 10, 2), true);
+        pm.setDisplayName(ChatColor.AQUA + "Potion of Regeneration III");
+        potion.setItemMeta(pm);
+        return potion;
+    }
+
+    public static ItemStack getPotionHeal(int heal, int amount) {
+        ItemStack h = new ItemStack(org.bukkit.Material.POTION, amount);
+        PotionMeta hm = (PotionMeta) h.getItemMeta();
+        hm.setDisplayName(ChatColor.AQUA + "Potion of Heal (" + heal + ChatColor.RED + "❤" + ChatColor.AQUA + ")");
+        h.setItemMeta(hm);
+        return h;
     }
 }

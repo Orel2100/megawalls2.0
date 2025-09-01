@@ -33,12 +33,13 @@ public class ClassListener implements Listener {
             if (item != null && item.getType().name().endsWith("_SWORD")) {
                 MPlayer mPlayer = plugin.getPlayerManager().getMPlayer(player);
                 if (mPlayer.getSelectedClass() != null) {
-                    if (player.getLevel() >= 100) {
+                    if (item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().contains(mPlayer.getSelectedClass().getName())) {
+                        if (player.getLevel() >= 100) {
                         long now = System.currentTimeMillis();
                         long lastUse = cooldowns.getOrDefault(player.getUniqueId(), 0L);
                         long cooldown = mPlayer.getSelectedClass().getAbility().getCooldown();
                         if (now - lastUse > cooldown) {
-                            int upgradeLevel = 1; // Placeholder
+                            int upgradeLevel = mPlayer.getUpgradeLevel(UpgradeType.ABILITY);
                             mPlayer.getSelectedClass().getAbility().use(player, upgradeLevel);
                             player.setLevel(0);
                             player.setExp(0);
@@ -49,6 +50,7 @@ public class ClassListener implements Listener {
                         }
                     } else {
                         player.sendMessage(ChatColor.RED + "You don't have enough energy!");
+                    }
                     }
                 }
             }

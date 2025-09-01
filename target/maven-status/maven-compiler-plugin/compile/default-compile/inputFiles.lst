@@ -1,5 +1,6 @@
 /app/src/main/java/me/orel/MegaWallzFFA.java
 /app/src/main/java/me/orel/api/ConfigUtils.java
+/app/src/main/java/me/orel/api/EffectUtils.java
 /app/src/main/java/me/orel/api/ItemStackCreator.java
 /app/src/main/java/me/orel/api/Utils.java
 /app/src/main/java/me/orel/class_system/Class.java

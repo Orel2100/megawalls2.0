@@ -42,6 +42,7 @@ public class MPlayerManager {
     }
 
     public void removePlayer(Player player) {
+        savePlayerData(player);
         players.remove(player.getUniqueId());
     }
 

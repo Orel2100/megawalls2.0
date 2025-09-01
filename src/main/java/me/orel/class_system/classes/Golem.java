@@ -2,15 +2,18 @@ package me.orel.class_system.classes;
 
 import me.orel.MegaWallzFFA;
 import me.orel.api.ItemStackCreator;
+import me.orel.api.Utils;
 import me.orel.class_system.Class;
 import me.orel.class_system.ClassType;
 import me.orel.class_system.HitType;
 import me.orel.class_system.UpgradeType;
 import me.orel.class_system.abilities.Ability;
 import me.orel.class_system.abilities.IronPunch;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,47 +53,63 @@ public class Golem extends Class {
 		if(upgrade == 1){
 			ItemStack Sword = new ItemStack(Material.STONE_SWORD);
 			Sword.addEnchantment(Enchantment.UNBREAKING, 3);
-			items.put(0, ItemStackCreator.createItem(Sword, "§bGolem Sword"));
+			items.put(0, ItemStackCreator.createItem(Sword, ChatColor.AQUA + getName() + " Sword"));
+			items.put(1, Utils.getSteaks(1, getName()));
 		}
 		if(upgrade == 2){
 			ItemStack Sword = new ItemStack(Material.STONE_SWORD);
 			Sword.addEnchantment(Enchantment.UNBREAKING, 3);
-			items.put(0, ItemStackCreator.createItem(Sword, "§bGolem Sword"));
+			items.put(0, ItemStackCreator.createItem(Sword, ChatColor.AQUA + getName() + " Sword"));
+			items.put(1, Utils.getSteaks(2, getName()));
 		}
 		if(upgrade == 3){
 			ItemStack Sword = new ItemStack(Material.STONE_SWORD);
 			Sword.addEnchantment(Enchantment.UNBREAKING, 3);
-			items.put(0, ItemStackCreator.createItem(Sword, "§bGolem Sword"));
+			items.put(0, ItemStackCreator.createItem(Sword, ChatColor.AQUA + getName() + " Sword"));
+			items.put(1, Utils.getSteaks(2, getName()));
+			items.put(2, Utils.getPotionRegeneration(1,getName()));
 		}
 		if(upgrade == 4){
 			ItemStack Sword = new ItemStack(Material.STONE_SWORD);
 			Sword.addEnchantment(Enchantment.UNBREAKING, 3);
-			items.put(0, ItemStackCreator.createItem(Sword, "§bGolem Sword"));
+			items.put(0, ItemStackCreator.createItem(Sword, ChatColor.AQUA + getName() + " Sword"));
+			items.put(1, Utils.getSteaks(2, getName()));
+			items.put(2, Utils.getPotionRegeneration(2,getName()));
 		}
 		if(upgrade == 5){
 			ItemStack Sword = new ItemStack(Material.STONE_SWORD);
 			Sword.addEnchantment(Enchantment.UNBREAKING, 3);
-			items.put(0, ItemStackCreator.createItem(Sword, "§bGolem Sword"));
+			items.put(0, ItemStackCreator.createItem(Sword, ChatColor.AQUA + getName() + " Sword"));
+			items.put(1, Utils.getSteaks(2, getName()));
+			items.put(2, Utils.getPotionRegeneration(2,getName()));
 		}
 		if(upgrade == 6){
 			ItemStack Sword = new ItemStack(Material.IRON_SWORD);
 			Sword.addEnchantment(Enchantment.UNBREAKING, 3);
-			items.put(0, ItemStackCreator.createItem(Sword, "§bGolem Sword"));
+			items.put(0, ItemStackCreator.createItem(Sword, ChatColor.AQUA + getName() + " Sword"));
+			items.put(1, Utils.getSteaks(3, getName()));
+			items.put(2, Utils.getPotionRegeneration(2,getName()));
 		}
 		if(upgrade == 7){
 			ItemStack Sword = new ItemStack(Material.IRON_SWORD);
 			Sword.addEnchantment(Enchantment.UNBREAKING, 3);
-			items.put(0, ItemStackCreator.createItem(Sword, "§bGolem Sword"));
+			items.put(0, ItemStackCreator.createItem(Sword, ChatColor.AQUA + getName() + " Sword"));
+			items.put(1, Utils.getSteaks(3, getName()));
+			items.put(2, Utils.getPotionRegeneration(2,getName()));
 		}
 		if(upgrade == 8){
 			ItemStack Sword = new ItemStack(Material.IRON_SWORD);
 			Sword.addEnchantment(Enchantment.UNBREAKING, 3);
-			items.put(0, ItemStackCreator.createItem(Sword, "§bGolem Sword"));
+			items.put(0, ItemStackCreator.createItem(Sword, ChatColor.AQUA + getName() + " Sword"));
+			items.put(1, Utils.getSteaks(3, getName()));
+			items.put(2, Utils.getPotionRegeneration(2,getName()));
 		}
 		if(upgrade == 9){
 			ItemStack Sword = new ItemStack(Material.IRON_SWORD);
 			Sword.addEnchantment(Enchantment.UNBREAKING, 3);
-			items.put(0, ItemStackCreator.createItem(Sword, "§bGolem Sword"));
+			items.put(0, ItemStackCreator.createItem(Sword, ChatColor.AQUA + getName() + " Sword"));
+			items.put(1, Utils.getSteaks(3, getName()));
+			items.put(2, Utils.getPotionRegeneration(2,getName()));
         }
         return items;
     }

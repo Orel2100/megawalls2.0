@@ -1,7 +1,9 @@
 me/orel/class_system/classes/Golem.class
 me/orel/class_system/abilities/IronPunch.class
 me/orel/commands/CommandHandler.class
+me/orel/api/EffectUtils$2.class
 me/orel/class_system/Class.class
+me/orel/api/EffectUtils.class
 me/orel/class_system/ClassType.class
 me/orel/commands/UpgradeCommand.class
 me/orel/listeners/DeathListener.class
@@ -11,8 +13,10 @@ me/orel/api/ConfigUtils.class
 me/orel/class_system/UpgradeGUI$1.class
 me/orel/class_system/classes/Herobrine.class
 me/orel/class_system/ClassSelectorGUI.class
+me/orel/api/EffectUtils$1.class
 me/orel/api/Utils.class
 me/orel/listeners/ClassListener.class
+me/orel/class_system/abilities/IronPunch$1.class
 me/orel/class_system/ClassManager.class
 me/orel/commands/ArenaCommand.class
 me/orel/listeners/DamageListener.class
