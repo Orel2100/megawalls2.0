@@ -39,8 +39,8 @@ public class ClassListener implements Listener {
                         long lastUse = cooldowns.getOrDefault(player.getUniqueId(), 0L);
                         long cooldown = mPlayer.getSelectedClass().getAbility().getCooldown();
                         if (now - lastUse > cooldown) {
-                            int upgradeLevel = mPlayer.getUpgradeLevel(UpgradeType.ABILITY);
-                            mPlayer.getSelectedClass().getAbility().use(player, upgradeLevel);
+                            me.orel.class_system.Upgrade upgrade = new me.orel.class_system.Upgrade(player, mPlayer.getSelectedClass(), UpgradeType.ABILITY);
+                            mPlayer.getSelectedClass().getAbility().use(player, upgrade.getCurrentLevel());
                             player.setLevel(0);
                             player.setExp(0);
                             cooldowns.put(player.getUniqueId(), now);

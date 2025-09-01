@@ -30,12 +30,13 @@ public class UpgradeGUI implements Listener {
         Inventory gui = Bukkit.createInventory(null, 9 * 3, "Upgrades for " + selectedClass.getName());
 
         for (UpgradeType type : UpgradeType.values()) {
-            int currentLevel = mPlayer.getUpgradeLevel(type);
+            Upgrade upgrade = new Upgrade(player, selectedClass, type);
+            int currentLevel = upgrade.getCurrentLevel();
             int price = selectedClass.getUpgradePrice(type, currentLevel);
 
             ItemStack item = new ItemStack(getIconForUpgrade(type));
             ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(ChatColor.GREEN + type.name());
+            meta.setDisplayName(ChatColor.GREEN + type.getName());
             List<String> lore = new ArrayList<>();
             lore.add(ChatColor.GRAY + "Current Level: " + currentLevel);
             if (currentLevel < 9) { // Max level placeholder
@@ -67,7 +68,8 @@ public class UpgradeGUI implements Listener {
         Class selectedClass = mPlayer.getSelectedClass();
         UpgradeType type = UpgradeType.valueOf(ChatColor.stripColor(clickedItem.getItemMeta().getDisplayName()));
 
-        int currentLevel = mPlayer.getUpgradeLevel(type);
+        Upgrade upgrade = new Upgrade(player, selectedClass, type);
+        int currentLevel = upgrade.getCurrentLevel();
         if (currentLevel >= 9) {
             player.sendMessage(ChatColor.RED + "This upgrade is already at the maximum level.");
             return;
@@ -80,8 +82,8 @@ public class UpgradeGUI implements Listener {
         }
 
         mPlayer.addCoins(-price);
-        mPlayer.setUpgradeLevel(type, currentLevel + 1);
-        player.sendMessage(ChatColor.GREEN + "You have upgraded " + type.name() + " to level " + (currentLevel + 1) + "!");
+        upgrade.upgrade();
+        player.sendMessage(ChatColor.GREEN + "You have upgraded " + type.getName() + " to level " + (currentLevel + 1) + "!");
         open(player); // Re-open the GUI to show the new level
     }
 

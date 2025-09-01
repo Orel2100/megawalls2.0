@@ -2,10 +2,6 @@ package me.orel.player;
 
 import org.bukkit.entity.Player;
 
-import me.orel.class_system.UpgradeType;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class MPlayer {
@@ -14,7 +10,6 @@ public class MPlayer {
     private final Player player;
     private int coins;
     private me.orel.class_system.Class selectedClass;
-    private final Map<UpgradeType, Integer> upgrades = new HashMap<>();
 
     public MPlayer(Player player) {
         this.uuid = player.getUniqueId();
@@ -48,17 +43,5 @@ public class MPlayer {
 
     public void setSelectedClass(me.orel.class_system.Class selectedClass) {
         this.selectedClass = selectedClass;
-    }
-
-    public int getUpgradeLevel(UpgradeType type) {
-        return upgrades.getOrDefault(type, 1);
-    }
-
-    public void setUpgradeLevel(UpgradeType type, int level) {
-        upgrades.put(type, level);
-    }
-
-    public Map<UpgradeType, Integer> getUpgrades() {
-        return upgrades;
     }
 }

@@ -17,7 +17,8 @@ public abstract class Class {
     public void apply(Player player) {
         MegaWallzFFA plugin = MegaWallzFFA.getInstance();
         MPlayer mPlayer = plugin.getPlayerManager().getMPlayer(player);
-        int upgradeLevel = mPlayer.getUpgradeLevel(UpgradeType.KIT);
+        Upgrade upgrade = new Upgrade(player, this, UpgradeType.KIT);
+        int upgradeLevel = upgrade.getCurrentLevel();
 
         player.getInventory().clear();
         for (java.util.Map.Entry<Integer, ItemStack> entry : getStartingItems(upgradeLevel).entrySet()) {

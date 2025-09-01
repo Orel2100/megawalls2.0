@@ -17,12 +17,11 @@ import org.bukkit.entity.Player;
 public final class MegaWallzFFA extends JavaPlugin implements Listener {
 
     private static MegaWallzFFA instance;
+    private final List<String> playing = new ArrayList<>();
     private MPlayerManager playerManager;
     private CommandHandler commandHandler;
     private ClassManager classManager;
     private me.orel.class_system.ClassSelectorGUI classSelectorGUI;
-    private final List<Location> gameSpawns = new ArrayList<>();
-    private final List<String> playing = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -35,12 +34,6 @@ public final class MegaWallzFFA extends JavaPlugin implements Listener {
         classManager.registerClass(new me.orel.class_system.classes.Herobrine(this));
 
         saveDefaultConfig();
-
-        if (getConfig().isList("game-spawns")) {
-            for (String s : getConfig().getStringList("game-spawns")) {
-                gameSpawns.add(me.orel.api.ConfigUtils.stringToLocation(s));
-            }
-        }
 
         commandHandler.register("arena", new me.orel.commands.ArenaCommand(this));
         commandHandler.register("upgrade", new me.orel.commands.UpgradeCommand(this));
@@ -97,12 +90,9 @@ public final class MegaWallzFFA extends JavaPlugin implements Listener {
         return playing;
     }
 
-    public List<Location> getGameSpawns() {
-        return gameSpawns;
-    }
-
     public void randomSpawn(Player p) {
-        if (getGameSpawns() == null || getGameSpawns().isEmpty()) {
+        java.util.List<Location> gameSpawns = me.orel.api.ConfigUtils.getGameSpawns();
+        if (gameSpawns == null || gameSpawns.isEmpty()) {
             p.sendMessage(org.bukkit.ChatColor.RED + "There are no game spawns set!");
             return;
         }
@@ -111,12 +101,12 @@ public final class MegaWallzFFA extends JavaPlugin implements Listener {
             return;
         }
 
-        int random = new java.util.Random().nextInt(getGameSpawns().size());
-        p.teleport(getGameSpawns().get(random));
+        int random = new java.util.Random().nextInt(gameSpawns.size());
+        p.teleport(gameSpawns.get(random));
         getPlayerManager().getMPlayer(p).getSelectedClass().apply(p);
 
-        if (!getPlaying().contains(p.getName())) {
-            getPlaying().add(p.getName());
+        if (!playing.contains(p.getName())) {
+            playing.add(p.getName());
         }
     }
 }

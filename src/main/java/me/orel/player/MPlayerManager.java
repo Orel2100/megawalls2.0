@@ -65,11 +65,7 @@ public class MPlayerManager {
                 mPlayer.setSelectedClass(plugin.getClassManager().getClass(className));
             }
             if (config.isConfigurationSection("upgrades")) {
-                for (String typeName : config.getConfigurationSection("upgrades").getKeys(false)) {
-                    UpgradeType type = UpgradeType.valueOf(typeName);
-                    int level = config.getInt("upgrades." + typeName);
-                    mPlayer.setUpgradeLevel(type, level);
-                }
+                // This is now handled by the Upgrade class
             }
         }
         players.put(player.getUniqueId(), mPlayer);
@@ -86,9 +82,7 @@ public class MPlayerManager {
         if (mPlayer.getSelectedClass() != null) {
             config.set("selected-class", mPlayer.getSelectedClass().getName());
         }
-        for (Map.Entry<UpgradeType, Integer> entry : mPlayer.getUpgrades().entrySet()) {
-            config.set("upgrades." + entry.getKey().name(), entry.getValue());
-        }
+        // Upgrades are now saved by the Upgrade class
         try {
             config.save(playerFile);
         } catch (IOException e) {

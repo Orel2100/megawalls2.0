@@ -27,4 +27,5 @@ me/orel/listeners/LobbyListener.class
 me/orel/class_system/UpgradeGUI.class
 me/orel/class_system/abilities/Ability.class
 me/orel/api/Utils$1.class
+me/orel/class_system/Upgrade.class
 me/orel/player/MPlayer.class
